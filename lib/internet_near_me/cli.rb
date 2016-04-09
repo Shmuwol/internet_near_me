@@ -19,14 +19,14 @@ class InternetNearMe::CLI
 
   def list_internet_cafes
     puts "Internet cafes near #{zip_code}:"
-    internet_cafes = InternetNearMe::Scraper.new(zip_code).scrape_by_zip_code
+    internet_cafes = InternetNearMe::Scraper.new.scrape_by_zip_code(zip_code)
     internet_cafes.each.with_index(1) do |internet_cafe, index| 
-      puts "--------------------"
+      render_divider
       puts "#{index}."
       puts internet_cafe.name
       puts internet_cafe.address
     end
-    puts "--------------------"
+    render_divider
     internet_cafes
   end
 
@@ -34,11 +34,17 @@ class InternetNearMe::CLI
     puts "Enter a number to get more details:"
     input = gets.strip
     internet_cafe = InternetNearMe::Scraper.new.scrape_details(internet_cafes[input.to_i - 1])
-    puts "--------------------"
+    render_divider
     puts internet_cafe.name
     puts "Today: #{internet_cafe.hours}"
     puts internet_cafe.rating
     puts internet_cafe.price
+    render_divider
+  end
+
+  private
+  
+  def render_divider
     puts "--------------------"
   end
 
