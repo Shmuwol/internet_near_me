@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "internet_near_me"
+
+InternetNearMe::CLI.new.call
