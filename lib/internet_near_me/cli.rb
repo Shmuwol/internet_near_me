@@ -13,12 +13,13 @@ class InternetNearMe::CLI
 
   def list_internet_cafes
     puts "Internet cafes near #{zip_code}:"
-    internet_cafes = InternetNearMe::Scraper.new.scrape_by_zip_code(zip_code)
+    internet_cafes = InternetNearMe::Scraper.new(zip_code).scrape_by_zip_code
     internet_cafes.each.with_index(1) do |internet_cafe, index| 
       puts "--------------------"
       puts "#{index}."
       puts internet_cafe.name
       puts internet_cafe.address
     end
+    puts "--------------------"
   end
 end
