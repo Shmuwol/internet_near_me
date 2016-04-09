@@ -1,5 +1,15 @@
 class InternetNearMe::InternetCafe
-  def self.create_collection(internet_cafes_hash)
-    ["Bean & Bean -- 210-21 Northern Blvd", "Comma Cafe -- 12-27 Depot Rd"]
+  attr_accessor :name, :address
+
+  def self.create_collection(internet_cafe_hashes)
+    internet_cafe_hashes.map do |internet_cafe_hash| 
+      self.new(internet_cafe_hash)
+    end
+  end
+
+  def initialize(internet_cafe_hash)
+    internet_cafe_hash.each do |attribute, value| 
+      self.send("#{attribute}=", value)
+    end
   end
 end
