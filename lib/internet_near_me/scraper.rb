@@ -1,8 +1,21 @@
 class InternetNearMe::Scraper
   attr_accessor :zip_code
 
-  def initialize(zip_code)
+  def initialize(zip_code = nil)
     @zip_code = zip_code
+  end
+
+  def scrape_details(internet_cafe)
+    url = "http://www.yelp.com" + internet_cafe.url
+    doc = Nokogiri::HTML(open(url, "User-Agent" => "Ruby/#{RUBY_VERSION}", 
+                                   "From" => "internet-near-me", 
+                                   "Referer" => "http://www.ruby-lang.org/"))
+    # binding.pry
+
+    internet_cafe.rating = doc.css(".rating-info .star-img").attribute("title")
+                              .value.gsub("star rating", "stars")
+    internet_cafe.hours = doc.css(".hour-range").text
+    internet_cafe
   end
 
   def scrape_by_zip_code
@@ -10,17 +23,20 @@ class InternetNearMe::Scraper
     doc = Nokogiri::HTML(open(url, "User-Agent" => "Ruby/#{RUBY_VERSION}", 
                                    "From" => "internet-near-me", 
                                    "Referer" => "http://www.ruby-lang.org/"))
-    # binding.pry
 
     internet_cafe_hashes = doc.css(".search-results-content li.regular-search-result").map do |search_result|
       {
-        name: search_result.css("a.biz-name").text,
-        address: search_result.css("address").text
+        name: search_result.css("a.biz-name").text.strip,
+        address: search_result.css("address").inner_html.gsub("<br>", "\n").strip,
+        price: search_result.css(".price-range").text.strip,
+        url: search_result.css("a.biz-name").attribute("href").value
       }
     end
 
     create_internet_cafes(internet_cafe_hashes)
   end
+
+  private
 
   def create_internet_cafes(internet_cafe_hashes)
     InternetNearMe::InternetCafe.create_collection(internet_cafe_hashes)

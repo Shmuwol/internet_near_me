@@ -1,5 +1,5 @@
 class InternetNearMe::InternetCafe
-  attr_accessor :name, :address
+  attr_accessor :name, :address, :price, :url, :rating, :hours
 
   def self.create_collection(internet_cafe_hashes)
     internet_cafe_hashes.map do |internet_cafe_hash| 
