@@ -36,14 +36,16 @@ class InternetNearMe::CLI
     internet_cafe = InternetNearMe::Scraper.new.scrape_details(internet_cafes[input.to_i - 1])
     render_divider
     puts internet_cafe.name
+    puts internet_cafe.phone
     puts "Today: #{internet_cafe.hours}"
-    puts internet_cafe.rating
+    puts "#{internet_cafe.rating} (#{internet_cafe.number_of_reviews} reviews)"
     puts internet_cafe.price
+    puts internet_cafe.website
     render_divider
   end
 
   private
-  
+
   def render_divider
     puts "--------------------"
   end

@@ -8,9 +8,13 @@ class InternetNearMe::Scraper
     url = "http://www.yelp.com" + internet_cafe.url
     doc = Nokogiri::HTML(open(url, REQUEST_HEADERS))
 
+    # binding.pry
     internet_cafe.rating = doc.css(".rating-info .star-img").attribute("title")
                               .value.gsub("star rating", "stars")
+    internet_cafe.number_of_reviews = doc.css(".rating-info .review-count span").text.strip
     internet_cafe.hours = doc.css(".hour-range").text
+    internet_cafe.phone = doc.css(".biz-phone").text.strip
+    internet_cafe.website = doc.css(".biz-website a").text.strip
     internet_cafe
   end
 
