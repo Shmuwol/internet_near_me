@@ -10,7 +10,6 @@ class InternetNearMe::Scraper
     doc = Nokogiri::HTML(open(url, "User-Agent" => "Ruby/#{RUBY_VERSION}", 
                                    "From" => "internet-near-me", 
                                    "Referer" => "http://www.ruby-lang.org/"))
-    # binding.pry
 
     internet_cafe.rating = doc.css(".rating-info .star-img").attribute("title")
                               .value.gsub("star rating", "stars")

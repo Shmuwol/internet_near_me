@@ -1,10 +1,5 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "internet_near_me"
-require "open-uri"
-require "pry"
-require "nokogiri"
-# Bundler.setup
+require_relative "../config/environment"
 
 InternetNearMe::CLI.new.call
