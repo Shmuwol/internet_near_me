@@ -1,20 +1,36 @@
 class InternetNearMe::CLI
-  attr_accessor :zip_code
+  attr_accessor :zip_code, :exit
 
   def call
     welcome
-    get_zip_code
-    internet_cafes = list_internet_cafes
-    get_more_details(internet_cafes)
+    loop do
+      if !exit
+        get_zip_code
+        exit ? break : get_more_details(list_internet_cafes)
+      else
+        break
+      end
+    end
+    goodbye
   end
 
   def welcome
-    puts "Welcome to internet-near-me!"
+    puts "Welcome to internet-near-me! Enter 'exit' at any time to exit."
+    self.exit = false 
+  end
+
+  def goodbye
+    puts "Goodbye!"
   end
 
   def get_zip_code
     puts "Please enter your zip code:"
-    self.zip_code = gets.strip
+    input = gets.strip
+    if input == 'exit'
+      self.exit = true
+    else
+      self.zip_code = input
+    end
   end
 
   def list_internet_cafes
@@ -31,17 +47,26 @@ class InternetNearMe::CLI
   end
 
   def get_more_details(internet_cafes)
-    puts "Enter a number to get more details:"
-    input = gets.strip
-    internet_cafe = InternetNearMe::Scraper.new.scrape_details(internet_cafes[input.to_i - 1])
-    render_divider
-    puts internet_cafe.name
-    puts internet_cafe.phone
-    puts "Today: #{internet_cafe.hours}"
-    puts "#{internet_cafe.rating} (#{internet_cafe.number_of_reviews} reviews)"
-    puts internet_cafe.price
-    puts internet_cafe.website
-    render_divider
+    loop do
+      puts "Enter a number to get more details or 'back' to enter a new zip code:"
+      input = gets.strip
+      if input == 'back'
+        break
+      elsif input == 'exit'
+        self.exit = true
+        break
+      else
+        internet_cafe = InternetNearMe::Scraper.new.scrape_details(internet_cafes[input.to_i - 1])
+        render_divider
+        puts internet_cafe.name
+        puts internet_cafe.phone
+        puts "Today: #{internet_cafe.hours}"
+        puts "#{internet_cafe.rating} (#{internet_cafe.number_of_reviews} reviews)"
+        puts internet_cafe.price
+        puts internet_cafe.website
+        render_divider
+      end
+    end
   end
 
   private
