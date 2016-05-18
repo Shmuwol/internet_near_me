@@ -1,8 +1,4 @@
-# InternetNearMe
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/internet_near_me`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+# internet_near_me
 
 ## Installation
 
@@ -14,15 +10,68 @@ gem 'internet_near_me'
 
 And then execute:
 
-    $ bundle
+    bundle
 
 Or install it yourself as:
 
-    $ gem install internet_near_me
+    gem install internet_near_me
 
 ## Usage
 
-TODO: Write usage instructions here
+Open it with
+
+    internet-near-me
+
+Then enter a zip code
+
+    Please enter your zip code:
+    10023
+
+It will display a list of the 10 nearest internet cafes:
+
+    Internet cafes near 10023:
+    --------------------
+    1.
+    Cafe Noi Espresso Bar
+    387 Amsterdam Ave
+    New York, NY 10024
+    --------------------
+    2.
+    Irving Farm Coffee Roasters
+    224 W 79th St
+    New York, NY 10024
+    --------------------
+    3.
+    Aroma Espresso Bar
+    161 W 72nd St
+    New York, NY 10023
+    --------------------
+    4.
+    David Rubenstein Atrium
+    61 W 62nd St
+    New York, NY 10023
+    --------------------
+    5.
+    Mille-Feuille Bakery
+    2175 Broadway
+    New York, NY 10036
+    --------------------
+    ...
+
+You can then get details on one by entering a number:
+
+    Enter a number to get more details or 'back' to enter a new zip code:
+    1
+
+    --------------------
+    Cafe Noi Espresso Bar
+    (212) 580-1315
+    Today: 7:00 am - 7:00 pm
+    4.0 stars (75 reviews)
+    $$
+
+You can then either enter `back` to change the zip code or another cafe number 
+to get the details of. At any time you can type `exit` to leave the program.
 
 ## Development
 
