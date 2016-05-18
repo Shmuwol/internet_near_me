@@ -15,7 +15,7 @@ class InternetNearMe::CLI
   end
 
   def welcome
-    puts "Welcome to internet-near-me! Enter 'exit' at any time to exit."
+    puts "Welcome to internet_near_me! Enter 'exit' at any time to exit."
     self.exit = false 
   end
 

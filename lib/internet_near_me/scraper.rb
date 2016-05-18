@@ -1,7 +1,7 @@
 class InternetNearMe::Scraper
 
   REQUEST_HEADERS = { "User-Agent" => "Ruby/#{RUBY_VERSION}", 
-                      "From" => "internet-near-me", 
+                      "From" => "internet_near_me", 
                       "Referer" => "http://www.ruby-lang.org/" }
 
   def scrape_details(internet_cafe)
