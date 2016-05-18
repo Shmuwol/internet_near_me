@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'internet_near_me/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "internet_near_me"
+  spec.name          = "internet-near-me"
   spec.version       = InternetNearMe::VERSION
   spec.authors       = ["lukegrecki"]
   spec.email         = ["lukegrecki@gmail.com"]
