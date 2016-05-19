@@ -75,7 +75,7 @@ to get the details of. At any time you can type `exit` to leave the program.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment. Run 'rake' to execute the specs.
 
 ## Contributing
 
