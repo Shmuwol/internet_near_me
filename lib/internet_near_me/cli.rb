@@ -1,6 +1,10 @@
 class InternetNearMe::CLI
   attr_accessor :zip_code, :exit
 
+  def initialize
+    @exit = false 
+  end
+
   def call
     welcome
     loop do
@@ -16,7 +20,6 @@ class InternetNearMe::CLI
 
   def welcome
     puts "Welcome to internet_near_me! Enter 'exit' at any time to exit."
-    self.exit = false 
   end
 
   def goodbye
@@ -27,9 +30,9 @@ class InternetNearMe::CLI
     puts "Please enter your zip code:"
     input = gets.strip
     if input == 'exit'
-      self.exit = true
+      @exit = true
     else
-      self.zip_code = input
+      @zip_code = input
     end
   end
 
@@ -53,7 +56,7 @@ class InternetNearMe::CLI
       if input == 'back'
         break
       elsif input == 'exit'
-        self.exit = true
+        @exit = true
         break
       else
         internet_cafe = InternetNearMe::Scraper.new.scrape_details(internet_cafes[input.to_i - 1])
