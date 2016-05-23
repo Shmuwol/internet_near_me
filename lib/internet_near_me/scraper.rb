@@ -22,21 +22,16 @@ class InternetNearMe::Scraper
     url = "http://www.yelp.com/search?find_desc=Internet+Cafes&find_loc=#{zip_code}"
     doc = Nokogiri::HTML(open(url, REQUEST_HEADERS))
 
-    internet_cafe_hashes = doc.css(".search-results-content li.regular-search-result").map do |search_result|
-      {
-        name: search_result.css("a.biz-name").text.strip,
-        address: search_result.css("address").inner_html.gsub("<br>", "\n").strip,
-        price: search_result.css(".price-range").text.strip,
-        url: search_result.css("a.biz-name").attribute("href").value
-      }
+    internet_cafes = []
+    doc.css(".search-results-content li.regular-search-result").map do |search_result|
+      internet_cafe = InternetNearMe::InternetCafe.new
+      internet_cafe.name = search_result.css("a.biz-name").text.strip
+      internet_cafe.address = search_result.css("address").inner_html.gsub("<br>", "\n").strip
+      internet_cafe.price = search_result.css(".price-range").text.strip
+      internet_cafe.url = search_result.css("a.biz-name").attribute("href").value
+      internet_cafes << internet_cafe
     end
-
-    create_internet_cafes(internet_cafe_hashes)
+    internet_cafes
   end
 
-  private
-
-  def create_internet_cafes(internet_cafe_hashes)
-    InternetNearMe::InternetCafe.create_collection(internet_cafe_hashes)
-  end
 end
