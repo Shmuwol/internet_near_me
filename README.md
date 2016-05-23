@@ -1,4 +1,7 @@
-# internet_near_me
+# Internet Near Me
+
+This is a simple CLI gem for finding internet cafes near you. The data is 
+scraped from yelp.
 
 ## Installation
 
