@@ -13,11 +13,11 @@ describe InternetNearMe::Scraper do
   end
 
   it 'scrapes details' do
-    hash = { name: 'Irving Farm Coffee Roasters', 
-             address: "224 W 79th St\nNew York, NY 10024",
-             price: '$$',
-             url: '/biz/irving-farm-coffee-roasters-new-york-2' }
-    cafe = InternetNearMe::InternetCafe.new(hash)
+    cafe = InternetNearMe::InternetCafe.new
+    cafe.name = 'Irving Farm Coffee Roasters'
+    cafe.address = "224 W 79th St\nNew York, NY 10024"
+    cafe.price = '$$'
+    cafe.url = '/biz/irving-farm-coffee-roasters-new-york-2'
     VCR.use_cassette('details') do
       detailed_cafe = InternetNearMe::Scraper.new.scrape_details(cafe)
       expect(detailed_cafe.rating).to eq('4.0 stars')
